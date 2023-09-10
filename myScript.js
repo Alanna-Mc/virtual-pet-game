@@ -1,5 +1,6 @@
-// Variable that identifies that the game is not yet active
+// identifies that the game is not yet active and the pet is not alive
 let gameActive = false;
+
 
 
 // Get references to the HTML elements
@@ -57,6 +58,9 @@ petImage.addEventListener('click', ticklePet);
 
 // Function to update pet name
 function givePetName(){
+
+  // Checks the name textbox is not blank
+  if (petNameInput.value !== "") {
   
   // Get input from text box and update pet name 
   const petNameInputValue = petNameInput.value;
@@ -81,7 +85,12 @@ function givePetName(){
   // Start game
   gameActive = true;
   
-  reducePetState()  
+  reducePetState()
+  }
+  else{
+    alert("Your pet needs a name!")
+
+  }  
 }
 
 
@@ -187,8 +196,8 @@ function reducePetState() {
 
 
 // Function to feed pet
-function feedPet()
-{
+function feedPet(){
+
   // Add 5 points to the pet's hunger score
   petState.hunger = Math.min(petState.hunger + 5, 10);
 
@@ -201,7 +210,6 @@ function feedPet()
   
   // Reset to default image
   resetDefaultImage();
-  
 }
 
 
@@ -216,7 +224,6 @@ function sleepPet(){
   petImage.src = sleepImageUrl;
 
   resetDefaultImage();
-  
 }
 
 
@@ -231,13 +238,12 @@ function playPet(){
   petImage.src = playImageUrl;
 
   resetDefaultImage();
-  
 }
 
 
 // Function to clean pet
 function washPet(){
-  
+
   petState.cleanliness = Math.min(petState.cleanliness + 10, 10);
 
   updateDisplayedPetState();
@@ -250,14 +256,14 @@ function washPet(){
 
 // Pet death function
 function petDeath(){
-   
+
+  // Stop Game
+  gameActive = false;
+
   const deadImageUrl = './FrogImages/death.png'; 
   petImage.src = deadImageUrl;
   const petName = petNameInput.value; 
   newTitle.innerHTML = `Oh no, ${petName} Died!`;
-  
-  // Stop Game
-  gameActive = false;
   
   // Disable all the action buttons
   eatButton.disabled = true;
@@ -269,30 +275,29 @@ function petDeath(){
 
 function ticklePet(){
   
-  if (gameActive === true){
-  
-  petState.happiness = Math.min(petState.happiness + 3, 10);
-
-  updateDisplayedPetState();
-
-  const tickleImageUrl = './FrogImages/tickle.png'; 
-  petImage.src = tickleImageUrl;
-    
+  if (gameActive) {
+    petState.happiness = Math.min(petState.happiness + 3, 10);
+    updateDisplayedPetState();
+    const tickleImageUrl = './FrogImages/tickle.png'; 
+    petImage.src = tickleImageUrl;
     setTimeout(function () {
-   const defaultImageUrl = './FrogImages/default.png'; 
-     
-    petImage.src = defaultImageUrl;
+      const defaultImageUrl = './FrogImages/default.png';
+      
+      if (gameActive){
+        petImage.src = defaultImageUrl;
+      }
     }, 1000); 
   }
 }
 
 // Restore the pet image to the default after a few seconds
    function resetDefaultImage (defaultImageUrl, delay) {
-   setTimeout(function () {
-   const defaultImageUrl = './FrogImages/default.png'; 
-     
-    petImage.src = defaultImageUrl;
-  }, 3000); // 3000 milliseconds (3 seconds)
+    setTimeout(function () {
+     if (gameActive){
+       const defaultImageUrl = './FrogImages/default.png'; 
+        petImage.src = defaultImageUrl;
+      }
+    }, 3000); // 3000 milliseconds (3 seconds)
    }
 
 
@@ -338,7 +343,7 @@ function resetPetStats() {
 }
 
 
-/* function saveGame(){
+function saveGame(){/* 
     // Convert petState object to JSON string
   const petStateJSON = JSON.stringify(petState);
 
@@ -347,10 +352,10 @@ function resetPetStats() {
 
   // Feedback to the user that the game is saved.
   console.log('Game saved successfully!');
-  
-} */
+  */
+} 
 
-/* function loadGame() {
+function loadGame() {/* 
     // Get the petState JSON string from localStorage
     const petStateJSON = localStorage.getItem('petState');
   
@@ -367,5 +372,5 @@ function resetPetStats() {
     } else {
       // If there is no saved data, feedback to the user.
       console.log('No saved game found.');
-    }
-} */
+    }*/
+} 
