@@ -85,10 +85,10 @@ function givePetName(){
   // Start game
   gameActive = true;
   
-  reducePetState()
+  reducePetState();
   }
   else{
-    alert("Your pet needs a name!")
+    alert("Your pet needs a name!");
 
   }  
 }
@@ -343,34 +343,58 @@ function resetPetStats() {
 }
 
 
-function saveGame(){/* 
-    // Convert petState object to JSON string
-  const petStateJSON = JSON.stringify(petState);
+function saveGame(){
+
+  if(gameActive === false){
+    alert('Game cannot be saved');
+  }
+  else{
+
+  // Object that includes pets name & stats
+  const gameData = {
+    petName: petNameInput.value,
+    petState: petState,
+    currentPetImage: petImage.src,
+    savedTitle: newTitle.innerHTML
+  };
+
+  // Convert gameState object to a JSON string
+  const gameDataJSON = JSON.stringify(gameData);
 
   // Save the JSON string to localStorage
-  localStorage.setItem('petState', petStateJSON);
+  localStorage.setItem('gameState', gameDataJSON);
 
   // Feedback to the user that the game is saved.
-  console.log('Game saved successfully!');
-  */
+  alert('Game saved successfully!');
+}
 } 
 
-function loadGame() {/* 
+function loadGame() { 
+
+  gameActive === true;
+  
     // Get the petState JSON string from localStorage
-    const petStateJSON = localStorage.getItem('petState');
+    const gameStateJSON = localStorage.getItem('gameState');
   
     // Check if there is any saved data
-    if (petStateJSON) {
-      // Parse the JSON string back to an object and update petState
-      petState = JSON.parse(petStateJSON);
+    if (gameStateJSON) {
+      
+      // Parse the JSON string back to an object 
+      const loadedGameData = JSON.parse(gameStateJSON);
   
-      // Update the displayed pet status on screen
+      // Update the pet details on screen
+      petNameInput.value = loadedGameData.petName;
+      newTitle.innerHTML = loadedGameData.savedTitle;
+      petState = loadedGameData.petState;
+      petImage.src = loadedGameData.currentPetImage
+      
+     
       updateDisplayedPetState();
   
       // Display feedback to the user that the game is loaded.
-      console.log('Game loaded successfully!');
+      alert('Game loaded successfully!');
     } else {
       // If there is no saved data, feedback to the user.
-      console.log('No saved game found.');
-    }*/
+      alert('No saved game found.');
+    }
 } 
