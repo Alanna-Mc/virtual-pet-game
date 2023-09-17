@@ -265,12 +265,28 @@ function petDeath(){
   const petName = petNameInput.value; 
   newTitle.innerHTML = `Oh no, ${petName} Died!`;
   
+  disableActionButtons()
+  
+}
+
+function disableActionButtons(){
+
   // Disable all the action buttons
   eatButton.disabled = true;
   sleepButton.disabled = true;
   playButton.disabled = true;
   washButton.disabled = true;
-  
+
+}
+
+function enableActionButtons(){
+
+// Enable all the action buttons
+eatButton.disabled = false;
+sleepButton.disabled = false;
+playButton.disabled = false;
+washButton.disabled = false;
+
 }
 
 function ticklePet(){
@@ -334,12 +350,9 @@ function resetPetStats() {
   
   // Update the displayed pet status on screen
   updateDisplayedPetState();
+  enableActionButtons()
+
   
-  // Enable all the action buttons
-  eatButton.disabled = false;
-  sleepButton.disabled = false;
-  playButton.disabled = false;
-  washButton.disabled = false;
 }
 
 
@@ -371,23 +384,24 @@ function saveGame(){
 
 function loadGame() { 
 
-  gameActive === true;
-  
     // Get the petState JSON string from localStorage
     const gameStateJSON = localStorage.getItem('gameState');
   
     // Check if there is any saved data
     if (gameStateJSON) {
+
+      gameActive = true;
       
       // Parse the JSON string back to an object 
       const loadedGameData = JSON.parse(gameStateJSON);
+
+      enableActionButtons()
   
       // Update the pet details on screen
       petNameInput.value = loadedGameData.petName;
       newTitle.innerHTML = loadedGameData.savedTitle;
       petState = loadedGameData.petState;
       petImage.src = loadedGameData.currentPetImage
-      
      
       updateDisplayedPetState();
   
