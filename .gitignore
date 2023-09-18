@@ -6,3 +6,9 @@ node_modules/
 
 # Ignore your editor's configuration files (e.g., VSCode)
 .vscode/
+
+# Ignore Playwright-specific files
+/test-results/
+/playwright-report/
+/playwright/.cache/
+/e2e/

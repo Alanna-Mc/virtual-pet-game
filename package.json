@@ -1,0 +1,25 @@
+{
+  "name": "virtualpetonline",
+  "version": "1.0.0",
+  "description": "Welcome to Virtual Pet, a fun and interactive virtual pet game built with HTML, CSS, and JavaScript!",
+  "main": "myScript.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Alanna-Mc/tamagotchi.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Alanna-Mc/tamagotchi/issues"
+  },
+  "homepage": "https://github.com/Alanna-Mc/tamagotchi#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.38.0",
+    "@types/node": "^20.6.2"
+  }
+}
